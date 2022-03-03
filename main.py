@@ -2,8 +2,6 @@ import discord
 from getuserid import *
 import EDget_notes 
 import EDget_work
-import time
-from datetime import *
 
 client = discord.Client()
 
