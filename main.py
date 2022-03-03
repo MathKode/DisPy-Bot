@@ -1,5 +1,9 @@
 import discord
 from getuserid import *
+from EDget_notes import get_notes
+from EDget_work import get_work
+
+
 
 client = discord.Client()
 
@@ -14,6 +18,8 @@ async def on_message(message):
     if prefix == "$":
         if content == "get-user-id":
             await get_user_id(client,message)
+            
+  
 
 
 
