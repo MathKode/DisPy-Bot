@@ -104,3 +104,43 @@ def get_work(ladate, identifiant,mdp):
       content = base64.b64decode(contenu[x])
       soup = bs(content, features="html.parser")
       text.append(soup.find_all(text=True))
+
+async def DiscordMessageWork(client,message):
+    if isinstance(message.channel, discord.DMChannel):
+
+        while True:
+            try:
+                commande = message.content.split(' ')
+                ladate = commande[1]
+                identifiant=commande[2]
+                mdp = commande[3]
+            
+                get_work(ladate,identifiant,mdp)
+    
+                i=0
+                print(message.author.name+'#'+message.author.discriminator+" a utilisé la commande !devoirs à :",datetime.now().strftime("%H:%M:%S"))
+                embed=discord.Embed(title=f"__📖 Devoirs pour le {ladate} __", description="", color=discord.Color.from_rgb(176, 223, 232))
+                embed.set_footer(text=f"Bon travail {message.author.name} ! ❤️")
+                
+                embed.set_author(name=prof[i], icon_url=message.author.avatar_url)
+                for x in range(nbrDevoir):
+                    
+                    embed.add_field(name=matière[i], value=''.join(text[i]), inline=False)
+                    i+=1
+
+                await message.channel.send(embed=embed)
+                
+            except Exception as err:
+            
+                await message.channel.send("Une erreur est survenue ! (mauvais identifiants ?, syntaxe incorrect) essayez ! aide")
+                
+                break
+            break
+    
+    else:
+          await message.delete()
+          await message.channel.send("Merci d'utiliser cette commande en privée pour des raisons de sécurité")
+          await message.author.send("Veuillez réessayez ici ! ")
+        
+    
+            
