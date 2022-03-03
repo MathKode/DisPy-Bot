@@ -3,6 +3,8 @@ import json
 from collections import defaultdict
 from bs4 import BeautifulSoup as bs
 import base64
+import discord
+from datetime import *
 
 
 
@@ -131,7 +133,7 @@ async def DiscordMessageWork(client,message):
                 await message.channel.send(embed=embed)
                 
             except Exception as err:
-            
+ 
                 await message.channel.send("Une erreur est survenue ! (mauvais identifiants ?, syntaxe incorrect) essayez ! aide")
                 
                 break
