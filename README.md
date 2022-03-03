@@ -1,7 +1,7 @@
 # DisPy-Bot
 A Discord Bot coded using Python. Open to collaboration
 
-La syntax pour intégrer le bot :
+La syntax pour intégrer le bot (imaginons la fonction lol_reponse dans le fichier autrecode.py) :
 > Main.py
 ```py
 import discord
