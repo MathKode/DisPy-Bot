@@ -1,7 +1,9 @@
 import discord
-from getuserid import *
+import getuserid
 import EDget_notes 
 import EDget_work
+import dilemme
+import aide
 
 client = discord.Client()
 
@@ -15,13 +17,15 @@ async def on_message(message):
     content=str(message.content[1:])
     if prefix == "$":
         if content == "get-user-id":
-            await get_user_id(client,message)
-            
-                
-    if message.content.startswith("!devoirs"):
+            await getuserid.get_user_id(client,message)
+        if content == "dilemme" or content == "dilemmes":
+            await dilemme.dilemme(client,message)
+        if content == "aide" or content == "aides":
+            await aide.aide(client,message)   
+    if message.content.startswith("$devoirs"):
         await EDget_work.DiscordMessageWork(client,message)
             
-    if message.content.startswith("!notes"):
+    if message.content.startswith("$notes"):
         await EDget_notes.DiscordMessageNotes(client,message)
 
       
@@ -36,7 +40,7 @@ async def on_message(message):
 
 
 # Connection
-token_file = open("token.txt","r")
+token_file = open("../token.txt","r")
 token = str(token_file.read())
 token_file.close()
 client.run(token)
