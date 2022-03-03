@@ -73,5 +73,5 @@ def get_notes(periode,identifiant,mdp):
         #Short_note=infoNote["codePeriode"].replace("A001","1").replace("A002","2").replace("A003","3"),infoNote["libelleMatiere"],int(Short_note[2]*Short_note[3])
         elif Short_note[0] == periode:
             Short_note=infoNote["codePeriode"].replace("A001","1").replace("A002","2").replace("A003","3"),infoNote["libelleMatiere"],float(float(Short_note[2])*20/float(Short_note[3]))
-            print(Short_note)
+
             Data[Short_note[1]].append(str(Short_note[2]).replace(".0",""))
