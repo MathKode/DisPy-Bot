@@ -1,7 +1,8 @@
 import discord
 from getuserid import *
-from EDget_notes import get_notes
-from EDget_work import get_work
+from EDget_notes import *
+from EDget_work import *
+from datetime import *
 
 
 
