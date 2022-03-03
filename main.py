@@ -1,10 +1,9 @@
 import discord
 from getuserid import *
-from EDget_notes import *
-from EDget_work import *
+import EDget_notes 
+import EDget_work
+import time
 from datetime import *
-
-
 
 client = discord.Client()
 
@@ -39,24 +38,23 @@ async def on_message(message):
                 identifiant=commande[2]
                 mdp = commande[3]
             
-                get_work(ladate,identifiant,mdp)
+                EDget_work.get_work(ladate,identifiant,mdp)
     
                 i=0
                 print(message.author.name+'#'+message.author.discriminator+" a utilisé la commande !devoirs à :",datetime.now().strftime("%H:%M:%S"))
                 embed=discord.Embed(title=f"__📖 Devoirs pour le {ladate} __", description="", color=discord.Color.from_rgb(176, 223, 232))
                 embed.set_footer(text=f"Bon travail {message.author.name} ! ❤️")
                 
-                embed.set_author(name=prof[i], icon_url=message.author.avatar_url)
-                for x in range(nbrDevoir):
+                embed.set_author(name=EDget_work.prof[i], icon_url=message.author.avatar_url)
+                for x in range(EDget_work.nbrDevoir):
                     
-                    embed.add_field(name=matière[i], value=''.join(text[i]), inline=False)
+                    embed.add_field(name=EDget_work.matière[i], value=''.join(EDget_work.text[i]), inline=False)
                     i+=1
 
                 await message.channel.send(embed=embed)
                 
             except Exception as err:
             
-
                 await message.channel.send("Une erreur est survenue ! (mauvais identifiants ?, syntaxe incorrect) essayez ! aide")
                 
                 break
@@ -78,13 +76,13 @@ async def on_message(message):
                 trimestre = int(commande[1])
                 identifiant=commande[2]
                 mdp = commande[3]
-                get_notes(trimestre,identifiant,mdp)
+                EDget_notes.get_notes(trimestre,identifiant,mdp)
 
                 embed=discord.Embed(title=f"__Notes du {trimestre} trimestre : __", description="", color=discord.Color.from_rgb(111, 250, 100))
                 embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
                 embed.set_footer(text=f"Donne toi à fond {message.author.name} ! ❤️")
                 
-                for k, v in Data.items():
+                for k, v in EDget_notes.Data.items():
 
                     embed.add_field(name=k, value='\n'.join(v), inline=True)
                 await message.channel.send(embed=embed)
@@ -93,7 +91,7 @@ async def on_message(message):
                 await message.channel.send("Merci d'utiliser cette commande en privée pour des raisons de sécurité")
                 await message.author.send("Veuillez réessayez ici ! ")
         except Exception as err:
-
+            
             await message.channel.send("Une erreur est survenue ! (mauvais identifiants ?, syntaxe incorrect) essayez ! aide")
 #################################################################################################################################################################                
 
@@ -110,7 +108,7 @@ async def on_message(message):
 
 
 # Connection
-token_file = open("../token.txt","r")
+token_file = open("token.txt","r")
 token = str(token_file.read())
 token_file.close()
 client.run(token)
