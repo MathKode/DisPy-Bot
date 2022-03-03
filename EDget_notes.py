@@ -1,8 +1,7 @@
 import requests
 import json 
 from collections import defaultdict
-
-
+import discord
 
 def get_notes(periode,identifiant,mdp):
 
@@ -101,5 +100,6 @@ async def DiscordMessageNotes(client,message):
                     await message.channel.send("Merci d'utiliser cette commande en privée pour des raisons de sécurité")
                     await message.author.send("Veuillez réessayez ici ! ")
             except Exception as err:
+ 
                 
                 await message.channel.send("Une erreur est survenue ! (mauvais identifiants ?, syntaxe incorrect) essayez ! aide")
