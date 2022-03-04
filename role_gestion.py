@@ -45,35 +45,43 @@ async def newrole(client,message):
     embed, ls = embed_creation(perm)
     bot_message = await message.channel.send(embed=embed)
     
+    def ls_to_dico(ls):
+        dico={}
+        for i in ls:
+            dico[str(i[0])]=bool(i[1])
+        return dico
+
     wait=True
     while wait:
         def check(m):
             return m.author == message.author and m.channel == message.channel
         response = await client.wait_for('message',check=check)
-        
-        if response.content == "END":
+        if str(response.content) == "END":
             wait=False
-        if 0<int(response.content)<26:
+        elif 0<int(response.content)<26:
             value=bool(ls[int(response.content)-1][1])
             name=str(ls[int(response.content)-1][0])
-            print("From :",ls[int(response.content)-1])
+            #print("From :",ls[int(response.content)-1])
             if value:
                 ls[int(response.content)-1] = (name, False)
             else:
                 ls[int(response.content)-1] = (name, True)
-            print("To :",ls[int(response.content)-1])
+            dic_perm=ls_to_dico(ls)
+            #print("To :",ls[int(response.content)-1])
+            #print(dic_perm)
+            perm.update(**dic_perm)
+            #print("ok")
             embed2, ls = embed_creation(perm)
+           
             await bot_message.edit(embed=embed2)
-            await message.channel.send(embed=embed2)
-            print("EDIT")
-
-
-
-
-    
-    #await serveur.create_role(name=f"{role_name}",
-     #                         color=discord.Color.blurple(),
-      #                        permissions=permissions)
+            await response.delete()
+            #await message.channel.send(embed=embed2)
+    print("role")
+    await serveur.create_role(name=f"{role_name}",
+                              color=discord.Color.blurple(),
+                              permissions=perm)
+    await bot_message.delete()
+    await message.channel.send(f"Création du rôle **{role_name}** terminée")
 
 
 
