@@ -7,7 +7,9 @@ import aide
 import mute
 import role_gestion
 
-client = discord.Client()
+intents = discord.Intents.default() #https://stackoverflow.com/questions/64831017/how-do-i-get-the-discord-py-intents-to-work
+intents.members = True #https://discordpy.readthedocs.io/en/stable/intents.html
+client = discord.Client(intents=intents)
 
 @client.event
 async def on_ready():
@@ -30,6 +32,12 @@ async def on_message(message):
                 await mute.mute(client,message)
             if content.split(" ")[0] == "newrole":
                 await role_gestion.newrole(client,message)
+            if content.split(" ")[0] == "deleterole":
+                await role_gestion.deleterole(client,message)
+            if content.split(" ")[0] == "addrole":
+                await role_gestion.addrole(client,message)
+            if content.split(" ")[0] == "removerole":
+                await role_gestion.removerole(client,message)
         if message.content.startswith("$devoirs"):
             await EDget_work.DiscordMessageWork(client,message)
                 
