@@ -21,4 +21,4 @@ async def lol_reponse(client,message):
 
 ATTENTION : il faut que ces deux options soient autorisée pour le lancement du bot...
 
-<img src="presentation.png">
+<img src="presentation1.png">
