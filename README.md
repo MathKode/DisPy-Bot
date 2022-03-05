@@ -18,3 +18,7 @@ async def lol_reponse(client,message):
     salon = message.channel
     await salon.send("Au t'es trop drole")
 ```
+
+ATTENTION : il faut que ces deux options soient autorisée pour le lancement du bot...
+
+<img src="presentation.png">
