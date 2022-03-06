@@ -11,9 +11,30 @@ intents = discord.Intents.default() #https://stackoverflow.com/questions/6483101
 intents.members = True #https://discordpy.readthedocs.io/en/stable/intents.html
 client = discord.Client(intents=intents)
 
+global serveur_on
+serveur_on = [] #Liste des serveurs où le bot est présent
+
+global command_ls #Liste de toutes les commandes du bot
+command_ls=["get-user-id",
+            "dilemme",
+            "aide",
+            "mute",
+            "newrole",
+            "deleterole",
+            "addrole",
+            "removerole",
+            "devoirs",
+            "notes"]
+
 @client.event
 async def on_ready():
-    print("Le Bot est Stat")
+    print("Le Bot est Stat\nConnect At :")
+    for serveur in client.guilds:
+        serveur_on.append(serveur)
+        print(f"   |-- {serveur.name}")
+    print("   ---")
+    
+        
 
 @client.event
 async def on_message(message):
