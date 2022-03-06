@@ -76,7 +76,7 @@ def get_notes(periode,identifiant,mdp):
             Data[Short_note[1]].append(str(Short_note[2]).replace(".0",""))
 
 async def DiscordMessageNotes(client,message):            
-    if message.content.startswith("!notes"):
+    
             try:
                 if isinstance(message.channel, discord.DMChannel):
 
@@ -100,6 +100,6 @@ async def DiscordMessageNotes(client,message):
                     await message.channel.send("Merci d'utiliser cette commande en privée pour des raisons de sécurité")
                     await message.author.send("Veuillez réessayez ici ! ")
             except Exception as err:
- 
+                print(err) 
                 
                 await message.channel.send("Une erreur est survenue ! (mauvais identifiants ?, syntaxe incorrect) essayez ! aide")
