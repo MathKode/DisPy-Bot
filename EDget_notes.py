@@ -76,7 +76,7 @@ def get_notes(periode,identifiant,mdp):
             Data[Short_note[1]].append(str(Short_note[2]).replace(".0",""))
 
 async def DiscordMessageNotes(client,message):            
-    
+    if message.content.startwith("$notes"):
             try:
                 if isinstance(message.channel, discord.DMChannel):
 
