@@ -76,30 +76,32 @@ def get_notes(periode,identifiant,mdp):
             Data[Short_note[1]].append(str(Short_note[2]).replace(".0",""))
 
 async def DiscordMessageNotes(client,message):            
-    if message.content.startwith("$notes"):
+        if isinstance(message.channel, discord.DMChannel):
             try:
-                if isinstance(message.channel, discord.DMChannel):
+                
 
 
-                    commande = message.content.split(' ')
-                    trimestre = int(commande[1])
-                    identifiant=commande[2]
-                    mdp = commande[3]
-                    get_notes(trimestre,identifiant,mdp)
+                commande = message.content.split(' ')
+                trimestre = int(commande[1])
+                identifiant=commande[2]
+                mdp = commande[3]
+                get_notes(trimestre,identifiant,mdp)
 
-                    embed=discord.Embed(title=f"__Notes du {trimestre} trimestre : __", description="", color=discord.Color.from_rgb(111, 250, 100))
-                    embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
-                    embed.set_footer(text=f"Donne toi à fond {message.author.name} ! ❤️")
-                    
-                    for k, v in Data.items():
+                embed=discord.Embed(title=f"__Notes du {trimestre} trimestre : __", description="", color=discord.Color.from_rgb(111, 250, 100))
+                embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
+                embed.set_footer(text=f"Donne toi à fond {message.author.name} ! ❤️")
+                
+                for k, v in Data.items():
 
-                        embed.add_field(name=k, value='\n'.join(v), inline=True)
-                    await message.channel.send(embed=embed)
-                else:
-                    await message.delete()
-                    await message.channel.send("Merci d'utiliser cette commande en privée pour des raisons de sécurité")
-                    await message.author.send("Veuillez réessayez ici ! ")
+                    embed.add_field(name=k, value='\n'.join(v), inline=True)
+                await message.channel.send(embed=embed)
+            
+                
             except Exception as err:
                 print(err) 
-                
                 await message.channel.send("Une erreur est survenue ! (mauvais identifiants ?, syntaxe incorrect) essayez ! aide")
+        else:
+            await message.delete()
+            await message.channel.send("Merci d'utiliser cette commande en privée pour des raisons de sécurité")
+            await message.author.send("Veuillez réessayez ici ! ")
+                
