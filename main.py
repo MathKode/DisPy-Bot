@@ -7,6 +7,8 @@ import aide
 import mute
 import role_gestion
 import secure_check
+import EDget_schedule
+
 
 intents = discord.Intents.default() #https://stackoverflow.com/questions/64831017/how-do-i-get-the-discord-py-intents-to-work
 intents.members = True #https://discordpy.readthedocs.io/en/stable/intents.html
@@ -75,6 +77,9 @@ async def on_message(message):
                 await EDget_work.DiscordMessageWork(client,message)        
             if content.split(" ")[0] == "notes":
                 await EDget_notes.DiscordMessageNotes(client,message)
+            if content.split(" ")[0] == "edt":
+                await EDget_schedule.DiscordMessageSchedule(client,message)
+
     except: pass
       
     
