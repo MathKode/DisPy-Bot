@@ -1,4 +1,6 @@
 # DisPy-Bot
+
+![Python 3.10](https://img.shields.io/badge/python-3.10-green.svg)
 A Discord Bot coded using Python. Open to collaboration
 
 La syntax pour intégrer le bot (imaginons la fonction lol_reponse dans le fichier autrecode.py) :
