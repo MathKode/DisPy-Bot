@@ -27,7 +27,8 @@ command_dico={"get-user-id":[],
               "addrole": ["administrator","manage_roles"],
               "removerole": ["administrator","manage_roles"],
               "devoirs": [],
-              "notes": []
+              "notes": [],
+              "edt": []
               }
 
 @client.event
