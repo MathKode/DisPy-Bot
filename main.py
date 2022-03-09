@@ -52,8 +52,8 @@ async def on_message(message):
                 perm_ls=command_dico[str(content.split(" ")[0])]
                 autorisation = await secure_check.check_perm_ls(message,perm_ls,2)
                 if not autorisation:
-                    await message.channel.send("Tu n'as pas la permition pour executer cette commande")
-                    exit("Pas de permition")
+                    await message.channel.send("Tu n'as pas la permission pour executer cette commande")
+                    exit("Pas de permission")
             except:
                 print("Commande Non configuré dans command_dico")
             if content == "get-user-id":
