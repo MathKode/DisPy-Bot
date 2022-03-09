@@ -6,6 +6,7 @@ import dilemme
 import aide
 import mute
 import role_gestion
+import secure_check
 
 intents = discord.Intents.default() #https://stackoverflow.com/questions/64831017/how-do-i-get-the-discord-py-intents-to-work
 intents.members = True #https://discordpy.readthedocs.io/en/stable/intents.html
@@ -14,17 +15,18 @@ client = discord.Client(intents=intents)
 global serveur_on
 serveur_on = [] #Liste des serveurs où le bot est présent
 
-global command_ls #Liste de toutes les commandes du bot
-command_ls=["get-user-id",
-            "dilemme",
-            "aide",
-            "mute",
-            "newrole",
-            "deleterole",
-            "addrole",
-            "removerole",
-            "devoirs",
-            "notes"]
+global command_dico #Liste de toutes les commandes du bot avec leurs permitions
+command_dico={"get-user-id":[],
+              "dilemme": [],
+              "aide": [],
+              "mute": ["administrator"],
+              "newrole": ["administrator","manage_roles"],
+              "deleterole": ["administrator","manage_roles"],
+              "addrole": ["administrator","manage_roles"],
+              "removerole": ["administrator","manage_roles"],
+              "devoirs": [],
+              "notes": []
+              }
 
 @client.event
 async def on_ready():
@@ -43,6 +45,14 @@ async def on_message(message):
         content=str(message.content[1:])
         #print(content.split(" ")[0])
         if prefix == "$":
+            try :
+                perm_ls=command_dico[str(content.split(" ")[0])]
+                autorisation = await secure_check.check_perm_ls(message,perm_ls,2)
+                if not autorisation:
+                    await message.channel.send("Tu n'as pas la permition pour executer cette commande")
+                    exit("Pas de permition")
+            except:
+                print("Commande Non configuré dans command_dico")
             if content == "get-user-id":
                 await getuserid.get_user_id(client,message)
             if content == "dilemme" or content == "dilemmes":
@@ -59,11 +69,12 @@ async def on_message(message):
                 await role_gestion.addrole(client,message)
             if content.split(" ")[0] == "removerole":
                 await role_gestion.removerole(client,message)
-        if message.content.startswith("$devoirs"):
-            await EDget_work.DiscordMessageWork(client,message)
-                
-        if message.content.startswith("$notes"):
-            await EDget_notes.DiscordMessageNotes(client,message)
+            if content.split(" ")[0] == "check":
+                await secure_check.check_perm(message,"speak")
+            if content.split(" ")[0] == "devoirs":
+                await EDget_work.DiscordMessageWork(client,message)        
+            if content.split(" ")[0] == "notes":
+                await EDget_notes.DiscordMessageNotes(client,message)
     except: pass
       
     

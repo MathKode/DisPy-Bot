@@ -1,66 +1,71 @@
-#Fichier servant de controlleur (vérifie si un membre à le rôle nécessaire pour une action)
 import discord
 
-async def init(client,command_ls,serveur_on):
-    #Initialise le fichier serveur.txt
+async def check_perm_ls(message,perm_ls,mode):
+    #Vérifie si l'auteur a les permitions nécessaires
     """
-    Ce fichier contient les autorisations de chaques serveurs
-        Syntax : 
-                {SERVEUR.NAME}:{commande}/{RoleID}${state}%{RoleID}$State:{commande}/...
-                {SERVEUR.NAME}:
-                ...
-    Ces informations seront stockées dans la variable dico_perm :
-        Syntax :
-                dico_perm[Serveur][commande][Role] = state
-                dico_perm = {
-                    "BiMathAx-SERV" : {
-                        "get-user-id" : {
-                            "1234241" : True
-                            "8467263" : False
-                        }
-                        "newrole" : {
-                            "1234241" : False
-                            "8467263" : False
-                        }
-                    }
-                    "Lunar-SERV" : {
-                        "get-user-id" : {
-                            "1234241" : True
-                            "8467263" : True
-                        }
-                        "newrole" : {
-                            "1234241" : True
-                            "8467263" : True
-                        }
-                    }
-                }
+        Input : messsage ["speak", "administrator"] 1
+        Return : True or False
+        
+        MODE 1 : Vérifie si l'utilisateur a TOUTES les perms
+        MODE 2 : Vérifie si l'utilisateur a AU MOINS 1 perms
     """
-    try:
-        file=open("serveur.txt","r")
-        c=file.read().split("\n")
-        file.close()
-        dico_perm={}
-        for line in c:
-            cut=line.split(":")
-            serveur_name = cut[0]
-            del cut[0]
-            dic_command={}
-            for commande in cut:
-                commande_name = str(commande.split("/")[0])
-                dic_role={}
-                for role in commande.split("/")[1]:
-                    role_name = str(role.split("$")[0])
-                    role_state = bool(role.split("$")[1])
-                    dic_role[role_name]=role_state
-                dic_command[commande_name] = dic_role
-            dico_perm[serveur_name] = dic_command
-    except:
-        dico_perm={}
-    
-    ### Vérifie que tous les serveurs sont présents
-    serv_name=[]
-    for serveur in serveur_on:
-        serv_name.append(serveur.name)
-    for serv in dico_perm:
-        if serv not in dico_perm:
+    if perm_ls == []: #Veut dire que tout est autorisé
+        return True
+    result=[]
+    for perm in perm_ls:
+        r=await check_perm(message,perm)
+        result.append(r)
+    if int(mode) == 1:
+        find=True
+        for i in result:
+            if i == False:
+                find=False
+    elif int(mode) == 2:
+        find=False
+        for i in result:
+            if i==True:
+                find=True
+    return find
 
+async def check_perm(message,perm_name):
+    #Dis si l'auteur du message à une permission
+    """
+        Input : message "seak"
+        Return : True or False
+    """
+    role_ls=__get_role(message)
+    find=False
+    for role in role_ls:
+        for perm in role.permissions:
+            #perm = ('attach_files', False)
+            if str(perm[0]) == str(perm_name) and bool(perm[1]) == True:
+                find=True
+    return find
+
+
+def __get_role(message):
+    """
+        Input : message
+        Output : [<Role1>, <Role2>, <Role3>]
+    """
+    author_id = message.author.id
+    dico_membre = __dico_membre(message)
+    try:
+        membre = dico_membre[str(author_id)]
+    except:
+        print("Erreur Fonction secure_check/__get_role :",NameError,TypeError)
+    role_ls=[]
+    for role in membre.roles:
+        role_ls.append(role)
+    return role_ls
+
+def __dico_membre(message):
+    #Retourne le dico des membres d'un serveur
+    """
+        Input : message
+        Output : {"ID" : <MEMBRE>, "ID" : <MEMBRE>}
+    """
+    dico={}
+    for member in message.guild.members:
+        dico[str(member.id)]=member
+    return dico
