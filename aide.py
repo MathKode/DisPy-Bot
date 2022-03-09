@@ -36,7 +36,9 @@ async def aide(client,message):
     embed_ED.add_field(name="$devoirs année:mois:jour <USERNAME> <PASSWORD>",
                     value="Affiche les devoirs écoles directe",
                     inline=True)
-    
+    embed_ED.add_field(name="$edt année:mois:jour <USERNAME> <PASSWORD>",
+                    value="Affiche l'agenda en fonction du jour choisis écoles directe",
+                    inline=True)  
     # ------------------------------------
     
     embed_ROLE=discord.Embed(title="Gestion des Rôles :",
