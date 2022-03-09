@@ -28,7 +28,7 @@ async def lol_reponse(client,message):
 Les Permissions :
 > Main.py
 ````py
-global command_dico #Liste de toutes les commandes du bot avec leurs permitions
+global command_dico #Liste de toutes les commandes du bot avec leurs permissions
 command_dico={"get-user-id":[],
               "dilemme": [],
               "aide": [],
