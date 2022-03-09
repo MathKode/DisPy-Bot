@@ -3,6 +3,7 @@
 ![Python 3.10](https://img.shields.io/badge/python-3.10-green.svg)
 ![Python 3.9](https://img.shields.io/badge/python-3.9-green.svg)
 ![Python 3.8](https://img.shields.io/badge/python-3.8-green.svg)
+![Dispybot](https://img.shields.io/badge/DisPy--BOT-Link-orange?link=https://bit.ly/lun4rBOT)
 
 
 A Discord Bot coded using Python. Open to collaboration
