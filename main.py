@@ -48,14 +48,17 @@ async def on_message(message):
         content=str(message.content[1:])
         #print(content.split(" ")[0])
         if prefix == "$":
+            allow=True
             try :
                 perm_ls=command_dico[str(content.split(" ")[0])]
                 autorisation = await secure_check.check_perm_ls(message,perm_ls,2)
                 if not autorisation:
-                    await message.channel.send("Tu n'as pas la permission pour executer cette commande")
-                    exit("Pas de permission")
+                    allow=False
             except:
                 print("Commande Non configuré dans command_dico")
+            if not allow:
+                await message.channel.send("Tu n'as pas la **permission** pour executer cette commande")
+                exit("Pas les permissions")
             if content == "get-user-id":
                 await getuserid.get_user_id(client,message)
             if content == "dilemme" or content == "dilemmes":
