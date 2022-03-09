@@ -19,6 +19,23 @@ async def lol_reponse(client,message):
     await salon.send("Au t'es trop drole")
 ```
 
+Les Permitions :
+> Main.py
+````py
+global command_dico #Liste de toutes les commandes du bot avec leurs permitions
+command_dico={"get-user-id":[],
+              "dilemme": [],
+              "aide": [],
+              "mute": ["administrator"],
+              "newrole": ["administrator","manage_roles"],
+              "deleterole": ["administrator","manage_roles"],
+              "addrole": ["administrator","manage_roles"],
+              "removerole": ["administrator","manage_roles"],
+              "devoirs": [],
+              "notes": []
+              }
+ ````
+
 ATTENTION : il faut que ces deux options soient autorisée pour le lancement du bot...
 
 <img src="presentation1.png">
