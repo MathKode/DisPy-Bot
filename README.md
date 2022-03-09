@@ -19,7 +19,7 @@ async def lol_reponse(client,message):
     await salon.send("Au t'es trop drole")
 ```
 
-Les Permitions :
+Les Permissions :
 > Main.py
 ````py
 global command_dico #Liste de toutes les commandes du bot avec leurs permitions
