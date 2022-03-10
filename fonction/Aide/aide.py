@@ -24,7 +24,9 @@ async def aide(client,message):
     embed.add_field(name="$aide",
                     value="Affiche l'ensemble des commandes disponnibles avec leur explication",
                     inline=True)
-
+       embed.add_field(name="$osuprofile <nom d'utilisateur>",
+                    value="Affiche les informations d'un joueur OSU!",
+                    inline=True)
     # ------------------------------------
 
     embed_ED=discord.Embed(title="Ecole Directe :",
