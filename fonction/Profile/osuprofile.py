@@ -32,6 +32,7 @@ def get_stat(username):
     global totalscore
     global accuracy
     global levelup
+    global play_time
 
     token=get_token()
 
@@ -53,14 +54,16 @@ def get_stat(username):
 
             return "Invalid"
     except:
+
         
         avatar = elements["avatar_url"]
         #print(elements.keys())
 
 
         stat = json.loads(response.text)["statistics"]
-        
 
+
+        play_time = str(int(stat["play_time"])/3600).split(".")[0]
         accuracy = stat["hit_accuracy"]
         totalscore=stat["total_score"]
         level = stat["level"]["current"]
@@ -107,6 +110,7 @@ async def osu_profile(client,message):
             embed.add_field(name="Précision :",value=accuracy, inline=True)
             embed.add_field(name="Score total :",value=totalscore, inline=True)
             embed.add_field(name="Nombre de parties :",value=play_count, inline=True)
+            embed.add_field(name="Temps de jeu (h):",value=play_time, inline=True)
             
             progress_bar = ["0 "]
             #progress = int(list(str(level))[0])
