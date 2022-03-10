@@ -14,12 +14,12 @@ La syntax pour intégrer le bot (imaginons la fonction lol_reponse dans le fichi
 > Main.py
 ```py
 import discord
-from autrecode import *
+import fonction.autrecode as autrecode
 
 @client.event
 async def on_message(message):
     if message.content == "LOL":
-        await lol_reponse(client,message)
+        await autrecode.lol_reponse(client,message)
 ```
 > Autrecode.py
 ```py
@@ -47,4 +47,4 @@ command_dico={"get-user-id":[],
 
 ATTENTION : il faut que ces deux options soient autorisée pour le lancement du bot...
 
-<img src="presentation1.png">
+<img src="img/presentation1.png">
