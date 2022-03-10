@@ -9,6 +9,7 @@ import fonction.Common.mute as mute
 import fonction.Role.role_gestion as role_gestion
 import fonction.Secure.secure_check2 as secure_check
 import fonction.ED.EDget_schedule as EDget_schedule
+import fonction.Profile.osuprofile as osuprofile
 
 
 intents = discord.Intents.default() #https://stackoverflow.com/questions/64831017/how-do-i-get-the-discord-py-intents-to-work
@@ -29,7 +30,8 @@ command_dico={"get-user-id":[],
               "removerole": ["administrator","manage_roles"],
               "devoirs": [],
               "notes": [],
-              "edt": []
+              "edt": [],
+              "osuprofile": []
               }
 
 @client.event
@@ -84,6 +86,8 @@ async def on_message(message):
                 await EDget_notes.DiscordMessageNotes(client,message)
             if content.split(" ")[0] == "edt":
                 await EDget_schedule.DiscordMessageSchedule(client,message)
+            if content.split(" ")[0] == "osuprofile":
+                await osuprofile.osu_profile(client,message)
 
     except: pass
       
