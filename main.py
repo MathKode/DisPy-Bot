@@ -1,13 +1,14 @@
 import discord
-import getuserid
-import EDget_notes 
-import EDget_work
-import dilemme
-import aide
-import mute
-import role_gestion
-import secure_check
-import EDget_schedule
+
+import fonction.Common.getuserid as getuserid
+import fonction.ED.EDget_notes as EDget_notes
+import fonction.ED.EDget_work as EDget_work
+import fonction.Common.dilemme as dilemme
+import fonction.Aide.aide as aide
+import fonction.Common.mute as mute
+import fonction.Role.role_gestion as role_gestion
+import fonction.Secure.secure_check2 as secure_check
+import fonction.ED.EDget_schedule as EDget_schedule
 
 
 intents = discord.Intents.default() #https://stackoverflow.com/questions/64831017/how-do-i-get-the-discord-py-intents-to-work
