@@ -1,6 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 
-def generate(ls,size):
+def generate(ls,size,name):
     #INIT
     space=int(size/4)
     mode="RGB"
@@ -23,7 +23,7 @@ def generate(ls,size):
             x+=space
         y+=space
     
-    img.save("fonction/Game/2048/image.png")
+    img.save(f"fonction/Game/2048/{str(name)}.png")
 
 def __draw_rectangle(img,x,y,width,height,bg):
     #shape = ((x1,y2) , (x2,y2))

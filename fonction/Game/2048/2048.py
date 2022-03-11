@@ -1,5 +1,6 @@
+import importlib
 import discord
-import generate_img
+generate_img = importlib.import_module("fonction.Game.2048.generate_img")
 import random
 
 def __init():
@@ -108,9 +109,20 @@ def __line_droite(line):
         r2.append(0)
     return r2[::-1]
 
+
+async def __send_grille(grille,message):
+    generate_img.generate(grille,1000,str(message.author.id))
+    await message.channel.send(file=discord.File(f"fonction/Game/2048/{str(message.author.id)}.png"))
+
 async def main(client, message):
     grille=__init()
-    player_id=message.author.id
+    print(grille)
+    game=True
+    while game:
+        await __send_grille(grille,message)
+        def check(m):
+            return m.author == message.author and m.channel == message.channel
+        response = await client.wait_for('message',check=check)
 
 
 __line_gauche([3,1,1,1])
