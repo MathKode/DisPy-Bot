@@ -39,20 +39,61 @@ def __move(ls,sens):
             l=__line_vertical(ls,t)
             r.append(__line_gauche(l))
             t+=1
+        r=__returnls(ls)
     elif int(sens) == 4:
+        r=[[],[],[],[]]
         t=0
         for line in ls:
             l=__line_vertical(ls,t)
-            r.append(__line_droite(l))
+            j=0
+            for i in __line_droite(l):
+                r[j].append(i)
+                j+=1
             t+=1
+        r=__returnls(ls)
+    result=__append_random(r)
+    return result
+
+def __append_random(ls):
+    # Ajoute un nouveau cube
+    place_libre=0
+    for i in ls:
+        for j in i:
+            if j==0:
+                place_libre+=1
+    nb=random.randint(0,place_libre)
+    t=0
+    r=[]
+    for i in ls:
+        l=[]
+        for j in i:
+            if t == nb:
+                print("OK:",j)
+                l.append(1)
+                j=1
+                t+=1
+            else :
+                if j == 0:
+                    t+=1
+                l.append(j)
+        r.append(l)
+    print(r)
     return r
+        
 
 def __line_vertical(ls,x):
     # Input : [.... ls]
     # Output : lingen verticale (colonne x)
     return [ ls[0][x], ls[1][x], ls[2][x], ls[3][x]]
 
-
+def __returnls(ls):
+    r=[[],[],[],[]]
+    for i in ls:
+        t=0
+        for j in i:
+            r[t].append(j)
+            t+=1
+    return r
 
 def __line_gauche(line):
     # Input : [ 1; 0; 0; 1]
@@ -123,8 +164,10 @@ async def main(client, message):
         def check(m):
             return m.author == message.author and m.channel == message.channel
         response = await client.wait_for('message',check=check)
+        print(response.content)
+        grille=__move(grille,int(response.content))
 
 
-__line_gauche([3,1,1,1])
+#__line_gauche([3,1,1,1])
 
-print(__line_droite([3,1,1,1]))
+#print(__line_droite([3,1,1,1]))
