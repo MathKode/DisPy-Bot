@@ -15,7 +15,7 @@ async def ban(client, message):
     try:
       num = int(''.join(re.findall(r'\d+', membre)))
 
-      user = await message.guild.query_members(user_ids=[num]) # list of members with userid
+      user = await message.guild.query_members(user_ids=[num]) 
       user = user[0]
  
 
