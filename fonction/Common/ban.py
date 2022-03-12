@@ -4,7 +4,7 @@ from discord.ext.commands import Bot
 import re
 from discord.utils import get
 
-print('modération : fichier ouvert')
+
 
 
 
