@@ -30,6 +30,9 @@ async def aide(client,message):
     embed.add_field(name="$ban",
                     value="$ban <USERNAME> <RAISON (facultatif)>, Banni l'utilisateur du serveur",
                     inline=True)
+    embed.add_field(name="$kick",
+                    value="$kick <USERNAME> <RAISON (facultatif)>, Exclu l'utilisateur du serveur",
+                    inline=True)
     # ------------------------------------
 
     embed_ED=discord.Embed(title="Ecole Directe :",
