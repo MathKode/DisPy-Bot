@@ -34,7 +34,8 @@ command_dico={"get-user-id":[],
               "notes": [],
               "edt": [],
               "ban": ["ban_members"],
-              "2048": []
+              "2048": [],
+              "osuprofile": []
               }
 
 @client.event
@@ -93,6 +94,8 @@ async def on_message(message):
                 await _2048.main(client,message)
             if content.split(" ")[0] == "ban":
                 await ban.ban(client,message)
+            if content.split(" ")[0] == "osuprofile":
+                await osuprofile.osu_profile(client,message)
     except: pass
       
     
