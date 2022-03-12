@@ -11,6 +11,7 @@ import fonction.Role.role_gestion as role_gestion
 import fonction.Secure.secure_check2 as secure_check
 import fonction.ED.EDget_schedule as EDget_schedule
 import fonction.Common.ban as ban
+import fonction.Profile.osuprofile as osuprofile
 _2048 = importlib.import_module("fonction.Game.2048.2048")
 
 
