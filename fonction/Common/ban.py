@@ -13,6 +13,8 @@ async def ban(client, message):
     membre=commande[1]
   
     try:
+      if len(commande)==1:
+        await message.channel.send("Tu n'as pas la préciser de **membre** à bannir pour executer cette commande")
       num = int(''.join(re.findall(r'\d+', membre)))
 
       user = await message.guild.query_members(user_ids=[num]) 
