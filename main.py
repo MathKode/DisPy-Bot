@@ -10,6 +10,7 @@ import fonction.Common.mute as mute
 import fonction.Role.role_gestion as role_gestion
 import fonction.Secure.secure_check2 as secure_check
 import fonction.ED.EDget_schedule as EDget_schedule
+import fonction.Common.ban as ban
 _2048 = importlib.import_module("fonction.Game.2048.2048")
 
 
@@ -32,6 +33,7 @@ command_dico={"get-user-id":[],
               "devoirs": [],
               "notes": [],
               "edt": [],
+              "ban": ["ban_members"],
               "2048": []
               }
 
@@ -89,6 +91,8 @@ async def on_message(message):
                 await EDget_schedule.DiscordMessageSchedule(client,message)
             if content.split(" ")[0] == "2048":
                 await _2048.main(client,message)
+            if content.split(" ")[0] == "ban":
+                await ban.ban(client,message)
     except: pass
       
     
