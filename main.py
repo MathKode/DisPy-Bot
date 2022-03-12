@@ -11,6 +11,7 @@ import fonction.Role.role_gestion as role_gestion
 import fonction.Secure.secure_check2 as secure_check
 import fonction.ED.EDget_schedule as EDget_schedule
 import fonction.Common.ban as ban
+import fonction.Common.kick as kick
 import fonction.Profile.osuprofile as osuprofile
 _2048 = importlib.import_module("fonction.Game.2048.2048")
 
@@ -36,6 +37,7 @@ command_dico={"get-user-id":[],
               "edt": [],
               "ban": ["ban_members"],
               "2048": [],
+              "kick": ["ban_members"],
               "osuprofile": []
               }
 
@@ -95,6 +97,8 @@ async def on_message(message):
                 await _2048.main(client,message)
             if content.split(" ")[0] == "ban":
                 await ban.ban(client,message)
+            if content.split(" ")[0] == "kick":
+                await kick.kick(client,message)
             if content.split(" ")[0] == "osuprofile":
                 await osuprofile.osu_profile(client,message)
     except: pass
