@@ -15,7 +15,7 @@ import fonction.Common.ban as ban
 import fonction.Common.kick as kick
 import fonction.Profile.osuprofile as osuprofile
 _2048 = importlib.import_module("fonction.Game.2048.2048")
-
+_2038 = importlib.import_module("fonction.Game.2038.2038")
 
 intents = discord.Intents.default() #https://stackoverflow.com/questions/64831017/how-do-i-get-the-discord-py-intents-to-work
 intents.members = True #https://discordpy.readthedocs.io/en/stable/intents.html
@@ -38,6 +38,7 @@ command_dico={"get-user-id":[],
               "edt": [],
               "ban": ["ban_members"],
               "2048": [],
+              "2038": [],
               "kick": ["ban_members"],
               "osuprofile": []
               }
@@ -97,6 +98,10 @@ async def on_message(message):
             if content.split(" ")[0] == "2048":
                 await _2048.main(client,message)
                 path=f"fonction/Game/2048/{message.author.id}.png"
+                os.remove(path)
+            if content.split(" ")[0] == "2038":
+                await _2038.main(client,message)
+                path=f"fonction/Game/2038/{message.author.id}.png"
                 os.remove(path)
             if content.split(" ")[0] == "ban":
                 await ban.ban(client,message)
