@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 def generate(ls,size,name):
     #INIT
-    space=int(size/4)
+    space=int(size/3)
     mode="RGB"
     size=(size,size)
     color=(33,33,33)
@@ -15,7 +15,7 @@ def generate(ls,size,name):
         x=0
         for nbo in line:
             if nbo != 0:
-                nb=color-int(nbo)*15
+                nb=color-int(nbo)*24
                 if nb<0:
                     nb=0
                 __draw_rectangle(img,x,y,space,space,(251, nb, 0))
@@ -23,7 +23,7 @@ def generate(ls,size,name):
             x+=space
         y+=space
     
-    img.save(f"fonction/Game/2048/{str(name)}.png")
+    img.save(f"fonction/Game/2038/{str(name)}.png")
 
 def __draw_rectangle(img,x,y,width,height,bg):
     #shape = ((x1,y2) , (x2,y2))
@@ -45,4 +45,4 @@ def __draw_text(img,text,x,y,space,size):
     d=font.getsize(text)
     img1.text((x+((space-d[0])/2),((y+(space-d[1])/2))),text,align="left",font=font)
 
-#generate([[1,2,0,13]],500,"ok")
+#generate([[1,6,5]],400,"ok.png")

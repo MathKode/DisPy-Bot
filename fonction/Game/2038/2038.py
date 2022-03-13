@@ -2,17 +2,17 @@ import importlib
 import discord
 import random
 try:
-    generate_img = importlib.import_module("fonction.Game.2048.generate_img")
+    generate_img = importlib.import_module("fonction.Game.2038.generate_img")
 except:
     import generate_img
 
 def __init():
     grille=[]
-    choix=random.randint(0,15)
+    choix=random.randint(0,9)
     t=0
-    for i in range(4):
+    for i in range(3):
         l=[]
-        for i in range(4):
+        for i in range(3):
             if t==choix:
                 l.append(1)
             else:
@@ -79,11 +79,11 @@ def __append_random(ls):
 def __move_vertical(ls,mode):
     ## MODE 1 : UP
     ## MODE 2 : DOWN
-    new=[[],[],[],[]]
+    new=[[],[],[]]
     sc=0
-    for x in range(4):
+    for x in range(3):
         colonne = []
-        for y in range(4): 
+        for y in range(3): 
             colonne.append(ls[y][x])
         
         if int(mode)==1:
@@ -91,7 +91,7 @@ def __move_vertical(ls,mode):
         else:
             r,sc_=__line_droite(colonne)
         sc+=sc_
-        for y in range(4):
+        for y in range(3):
             new[y].append(r[y])
     return new,sc
 
@@ -120,7 +120,7 @@ def __line_gauche(line):
             else:
                 r2.append(nb)
                 p+=1
-    while len(r2) < 4:
+    while len(r2) < 3:
         r2.append(0)
     return r2, score_under
 
@@ -149,7 +149,7 @@ def __line_droite(line):
             else:
                 r2.append(nb)
                 p+=1
-    while len(r2) < 4:
+    while len(r2) < 3:
         r2.append(0)
     return r2[::-1], score_under
 
@@ -157,11 +157,11 @@ def __line_droite(line):
 async def __send_grille(client,grille,message,mode,old,score):
     #MODE 1 : NEW
     #MODE 2 : MODIF/EDIT
-    embed=discord.Embed(title="2048 :",
+    embed=discord.Embed(title="2038 :",
                         description=f"{score}", 
                         color=0x00ff00)
-    generate_img.generate(grille,500,str(message.author.id))
-    file=discord.File(f"fonction/Game/2048/{str(message.author.id)}.png", filename="image.png")
+    generate_img.generate(grille,400,str(message.author.id))
+    file=discord.File(f"fonction/Game/2038/{str(message.author.id)}.png", filename="image.png")
     user_id=882590616138182726 #FaiBash
     salon = await client.fetch_user(int(user_id))
     m=await salon.send(file=file)
@@ -186,10 +186,10 @@ async def __high_score(message):
     USERNAME:/!:USERPICTURELINK:/!:SCORE
     """
     try:
-        file=open("fonction/Game/2048/high.txt","r")
+        file=open("fonction/Game/2038/high.txt","r")
         c=file.read().split(":/!:")
         file.close()
-        embed=discord.Embed(title="Worl 2048 High-Score :",
+        embed=discord.Embed(title="Worl 2038 High-Score :",
                             description=f"{c[2]}",
                             color=discord.Color.purple())
         embed.set_author(name=f"{c[0]}",
@@ -205,7 +205,7 @@ async def main(client, message):
     grille=__init()
     score=0
     game=True
-    max_=await __high_score(message)
+    max_ = await __high_score(message)
     game_message = await __send_grille(client,grille,message,1,None,score)
     while game:
         
@@ -237,7 +237,8 @@ async def main(client, message):
             grille,sc=__move(grille,4)
         if reaction.emoji == "🛑":
             game=False
-        score+=sc
+        else:
+            score+=sc
         #Modif Message
         if game:
             await __send_grille(client,grille,message,2,game_message,score)
@@ -245,19 +246,18 @@ async def main(client, message):
         #Enlève la réaction <REACTION>.remove(<USER>)
         await reaction.remove(reaction_[1])
     if int(score) > max_:
-        file=open("fonction/Game/2048/high.txt","w")
+        file=open("fonction/Game/2038/high.txt","w")
         m=f"{message.author}:/!:{message.author.avatar_url}:/!:{score}"
         file.write(m)
         file.close()
-    await message.channel.send(f"Fin du 2048 !\nTon score est de {score} : **GG**")
+    await message.channel.send(f"Fin du 2038 !\nTon score est de {score} : **GG**")
 
 #__line_gauche([3,1,1,1])
 
 #print(__line_droite([3,1,1,1]))
 
 
-game=[  [0,1,1,0],
-        [3,1,0,2],
-        [0,1,0,3],
-        [5,2,0,4]]
-#__move_vertical(game,2)
+game=[  [0,1,0],
+        [3,1,2],
+        [0,1,0]]
+#print(__move_vertical(game,2))
