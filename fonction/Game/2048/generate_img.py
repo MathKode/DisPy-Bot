@@ -15,7 +15,7 @@ def generate(ls,size,name):
         x=0
         for nbo in line:
             if nbo != 0:
-                nb=color-int(nbo)*13
+                nb=color-int(nbo)*15
                 if nb<0:
                     nb=0
                 __draw_rectangle(img,x,y,space,space,(251, nb, 0))
@@ -28,7 +28,7 @@ def generate(ls,size,name):
 def __draw_rectangle(img,x,y,width,height,bg):
     #shape = ((x1,y2) , (x2,y2))
     """
-         (x1,y1
+         (x1,y1)
             +------------
             |           |
             |           |
