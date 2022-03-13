@@ -1,6 +1,4 @@
 import importlib
-from socket import timeout
-from tkinter import scrolledtext
 import discord
 import random
 try:
