@@ -1,5 +1,6 @@
 import importlib
 import discord
+import os
 
 import fonction.Common.getuserid as getuserid
 import fonction.ED.EDget_notes as EDget_notes
@@ -95,6 +96,8 @@ async def on_message(message):
                 await EDget_schedule.DiscordMessageSchedule(client,message)
             if content.split(" ")[0] == "2048":
                 await _2048.main(client,message)
+                path=f"fonction/Game/2048/{message.author.id}.png"
+                os.remove(path)
             if content.split(" ")[0] == "ban":
                 await ban.ban(client,message)
             if content.split(" ")[0] == "kick":
