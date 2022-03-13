@@ -64,7 +64,18 @@ async def aide(client,message):
     embed_ROLE.add_field(name="$removerole <ROLE-NAME> @<USER>",
                     value="Enlève le *role* à l'utilisateur",
                     inline=True)
-    
+      
+    # ------------------------------------
+
+    embed_GAME=discord.Embed(title="Jeux :",
+                            description="",
+                            color=discord.Color.red())            
+    embed_GAME.add_field(name="$2048",
+                    value="Lance le jeu du 2048",
+                    inline=True)
+    embed_GAME.add_field(name="$2038",
+                    value="Lance le jeu du 2038",
+                    inline=True)
     # ------------------------------------
 
     embed_DEV=discord.Embed(title="Developpeur :",
@@ -81,5 +92,6 @@ async def aide(client,message):
     await message.author.send(embed=embed)
     await message.author.send(embed=embed_ED)
     await message.author.send(embed=embed_ROLE)
+    await message.author.send(embed=embed_GAME)
     await message.author.send(embed=embed_DEV)
     await message.delete()
