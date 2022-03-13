@@ -35,7 +35,7 @@ def __move(ls,sens):
         for line in ls:
             l,sc_=__line_droite(line)
             sc+=sc_
-            r.append()
+            r.append(l)
     elif int(sens) == 2:
         for line in ls:
             l,sc_=__line_gauche(line)
@@ -51,21 +51,21 @@ def __move(ls,sens):
 
 def __append_random(ls):
     # Ajoute un nouveau cube
+    #print(ls)
     place_libre=0
     for i in ls:
         for j in i:
             if j==0:
                 place_libre+=1
-    nb=random.randint(0,place_libre)
+    nb=random.randint(0,(place_libre-1))
     t=0
     r=[]
     for i in ls:
         l=[]
         for j in i:
-            if t == nb:
+            if t == nb and j==0:
                 #print("OK:",j)
                 l.append(1)
-                j=1
                 t+=1
             else :
                 if j == 0:
@@ -216,7 +216,6 @@ async def main(client, message):
         if reaction.emoji == "🛑":
             game=False
         score+=sc
-        
         #Modif Message
         if game:
             await __send_grille(client,grille,message,2,game_message,score)
