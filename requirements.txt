@@ -1,1 +1,6 @@
-discord
+pip install discord
+pip install Pillow
+pip install importlib
+sudo apt install ttf-mscorefonts-installer
+Sudo fc-cache
+Fc-match Arial
