@@ -2,6 +2,7 @@ import importlib
 import discord
 import os
 
+import fonction.Common.lock as lockchannel
 import fonction.Common.getuserid as getuserid
 import fonction.ED.EDget_notes as EDget_notes
 import fonction.ED.EDget_work as EDget_work
@@ -40,9 +41,11 @@ command_dico={"get-user-id":[],
               "ban": ["ban_members"],
               "2048": [],
               "2038": [],
-              "kick": ["ban_members"],
+              "kick": ["kick_members"],
               "osuprofile": [],
-              "clear": ["manage_messages"]
+              "clear": ["manage_messages"],
+              "lock": ["manage_channels"],
+              "unlock": ["manage_channels"]
               }
 
 @client.event
@@ -113,6 +116,10 @@ async def on_message(message):
                 await osuprofile.osu_profile(client,message)
             if content.split(" ")[0] == "clear":
                 await clear.clear(client,message)
+            if content.split(" ")[0] == "lock":
+                await lockchannel.lock(client,message)
+            if content.split(" ")[0] == "unlock":
+                await lockchannel.unlock(client,message)
     except: pass
       
     
