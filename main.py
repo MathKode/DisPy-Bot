@@ -16,6 +16,7 @@ import fonction.Common.ban as ban
 import fonction.Common.kick as kick
 import fonction.Profile.osuprofile as osuprofile
 import fonction.Common.clear as clear
+import fonction.Common.blague as blague
 _2048 = importlib.import_module("fonction.Game.2048.2048")
 _2038 = importlib.import_module("fonction.Game.2038.2038")
 
@@ -45,7 +46,8 @@ command_dico={"get-user-id":[],
               "osuprofile": [],
               "clear": ["manage_messages"],
               "lock": ["manage_channels"],
-              "unlock": ["manage_channels"]
+              "unlock": ["manage_channels"],
+              "blague": []
               }
 
 @client.event
@@ -120,6 +122,8 @@ async def on_message(message):
                 await lockchannel.lock(client,message)
             if content.split(" ")[0] == "unlock":
                 await lockchannel.unlock(client,message)
+            if content.split(" ")[0] == "blague":
+                await blague.joke(client,message)
     except: pass
       
     
