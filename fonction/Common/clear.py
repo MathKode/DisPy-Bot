@@ -9,10 +9,10 @@ async def clear(client,message):
             await message.channel.send("```Syntaxe incorrecte```")
         else:
             num=commande[1]
-            print(num, type(num))
+            
 
 
-            async for msg in message.channel.history(limit=int(num)):
+            async for msg in message.channel.history(limit=int(num)+1):
 
                 #print(msg.id)
 
