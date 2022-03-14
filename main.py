@@ -14,6 +14,7 @@ import fonction.ED.EDget_schedule as EDget_schedule
 import fonction.Common.ban as ban
 import fonction.Common.kick as kick
 import fonction.Profile.osuprofile as osuprofile
+import fonction.Common.clear as clear
 _2048 = importlib.import_module("fonction.Game.2048.2048")
 _2038 = importlib.import_module("fonction.Game.2038.2038")
 
@@ -40,7 +41,8 @@ command_dico={"get-user-id":[],
               "2048": [],
               "2038": [],
               "kick": ["ban_members"],
-              "osuprofile": []
+              "osuprofile": [],
+              "clear": ["manage_messages"]
               }
 
 @client.event
@@ -109,6 +111,8 @@ async def on_message(message):
                 await kick.kick(client,message)
             if content.split(" ")[0] == "osuprofile":
                 await osuprofile.osu_profile(client,message)
+            if content.split(" ")[0] == "clear":
+                await clear.clear(client,message)
     except: pass
       
     
