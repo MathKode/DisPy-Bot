@@ -33,6 +33,15 @@ async def aide(client,message):
     embed.add_field(name="$kick",
                     value="$kick <USERNAME> <RAISON (facultatif)>, Exclu l'utilisateur du serveur",
                     inline=True)
+    embed.add_field(name="$lock",
+                    value="$lock <channel>, permet de verrouiller un salon (personne ne pourra écrire)",
+                    inline=True)
+    embed.add_field(name="$unlock",
+                    value="$unlock <channem>, permet de déverrouiller un salon verrouillé",
+                    inline=True)
+    embed.add_field(name="$blague",
+                    value="$blague <beauf/dark/limit (facultatif)>, retourne une blague génerée par blaguesAPI",
+                    inline=True)
     # ------------------------------------
 
     embed_ED=discord.Embed(title="Ecole Directe :",
