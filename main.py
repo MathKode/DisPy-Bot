@@ -19,6 +19,8 @@ import fonction.Common.clear as clear
 import fonction.Common.blague as blague
 _2048 = importlib.import_module("fonction.Game.2048.2048")
 _2038 = importlib.import_module("fonction.Game.2038.2038")
+import fonction.VC.join as join
+
 
 intents = discord.Intents.default() #https://stackoverflow.com/questions/64831017/how-do-i-get-the-discord-py-intents-to-work
 intents.members = True #https://discordpy.readthedocs.io/en/stable/intents.html
@@ -47,7 +49,9 @@ command_dico={"get-user-id":[],
               "clear": ["manage_messages"],
               "lock": ["manage_channels"],
               "unlock": ["manage_channels"],
-              "blague": []
+              "blague": [],
+              "join": [],
+              "speak": []
               }
 
 @client.event
@@ -124,6 +128,10 @@ async def on_message(message):
                 await lockchannel.unlock(client,message)
             if content.split(" ")[0] == "blague":
                 await blague.joke(client,message)
+            if content.split(" ")[0] == "join":
+                await join.join(client,message)
+            if content.split(" ")[0] == "speak":
+                await join.speak(client,message)
     except: pass
       
     
