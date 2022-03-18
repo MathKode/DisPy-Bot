@@ -1,7 +1,6 @@
 import nacl
 import discord
-import gtts
-from playsound import playsound
+from gtts import gTTS
 from discord.utils import *
 from io import BytesIO
 import pyttsx3
@@ -21,6 +20,8 @@ async def join(client,message):
     except Exception as err:
         print(err)
 
+
+
 async def speak(client,message):
     try:
         
@@ -29,11 +30,10 @@ async def speak(client,message):
 
         #############################################################
 
-
-        engine = pyttsx3.init()
+    
         text = " ".join(tosay)
-        engine.save_to_file(text, 'audio.mp3')
-        engine.runAndWait()
+        tts = gTTS(text,lang="fr")
+        tts.save("audio.mp3")
 
         audio_source = discord.FFmpegPCMAudio("audio.mp3")
         print("speak command")
