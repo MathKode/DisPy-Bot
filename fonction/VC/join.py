@@ -32,10 +32,12 @@ async def speak(client,message):
 
     
         text = " ".join(tosay)
-        tts = gTTS(text,lang="fr")
-        tts.save("audio.mp3")
+        tts = gTTS(text,lang="fr",tld='ca')
+        save_name = str(message.author.voice.channel.id) + ".mp3"
+        print(save_name)
+        tts.save(save_name)
 
-        audio_source = discord.FFmpegPCMAudio("audio.mp3")
+        audio_source = discord.FFmpegPCMAudio(save_name)
         print("speak command")
         voice_client: discord.VoiceClient = discord.utils.get(client.voice_clients, guild=message.author.guild)
         voice_client.play(audio_source)
@@ -47,6 +49,7 @@ async def speak(client,message):
         
         if str(err) == "'NoneType' object has no attribute 'play'":
             await message.channel.send("```Veuillez vous connecter à un salon vocal et utiliser la commane $join```")
-
+        if str(err) == "Already connected to a voice channel.":
+            await message.channel.send("```Le bot est déja connecté à un salon vocal !```")
 
 
