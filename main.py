@@ -20,6 +20,7 @@ import fonction.Common.blague as blague
 _2048 = importlib.import_module("fonction.Game.2048.2048")
 _2038 = importlib.import_module("fonction.Game.2038.2038")
 import fonction.VC.join as join
+import fonction.Common.give_away.give_away as give_away
 
 
 intents = discord.Intents.default() #https://stackoverflow.com/questions/64831017/how-do-i-get-the-discord-py-intents-to-work
@@ -51,16 +52,24 @@ command_dico={"get-user-id":[],
               "unlock": ["manage_channels"],
               "blague": [],
               "join": [],
-              "speak": []
+              "speak": [],
+              "give_away" : []
               }
 
+
+@tasks.loop(minutes=1)
+async def give_away_loop():
+    await give_away.init_(client)
+    
+   
 @client.event
 async def on_ready():
     print("Le Bot est Stat\nConnect At :")
     for serveur in client.guilds:
         serveur_on.append(serveur)
-        print(f"   |-- {serveur.name}")
+        print(f"   |-- {serveur.name}  {serveur.id}")
     print("   ---")
+    give_away_loop.start()
     
         
 
@@ -132,6 +141,8 @@ async def on_message(message):
                 await join.join(client,message)
             if content.split(" ")[0] == "speak":
                 await join.speak(client,message)
+            if content.split(" ")[0] == "give_away":
+                await give_away.give_away(client,message)
     except: pass
       
     
