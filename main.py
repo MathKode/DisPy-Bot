@@ -56,7 +56,7 @@ command_dico={"get-user-id":[],
               "join": [],
               "speak": [],
               "give_away" : [],
-              "newprefix": []
+              "newprefix": ["administrator"]
               }
 
 
@@ -154,7 +154,7 @@ async def on_message(message):
             if content.split(" ")[0] == "give_away":
                 await give_away.give_away(client,message)
             if content.split(" ")[0] == "newprefix":
-                prefix.change_prefix(message)
+                await prefix.change_prefix(message)
                 serveur_prefix = await prefix.load_prefix(client)
     except: pass
       
