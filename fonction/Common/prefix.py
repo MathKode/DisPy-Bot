@@ -1,4 +1,5 @@
 #Set the prefix of a discord
+import discord
 
 async def __set_serveur(client,dico_prefix):
     #Ajouste la liste des serveurs présents
@@ -35,6 +36,13 @@ def __file_actualize(prefix_dico):
     file.write("\n".join(ls))
     file.close()
 
+async def __check_message(message,prefix):
+    embed=discord.Embed(title="New Prefix Set",
+                        description=f"The new prefix is **{prefix}**",
+                        color=discord.Color.green())
+    embed.set_footer(text=f"By {message.author}")
+    await message.channel.send(embed=embed)
+
 async def load_prefix(client):
     try :
         file=open("fonction/Common/prefix.txt",'r')
@@ -47,7 +55,7 @@ async def load_prefix(client):
     __file_actualize(prefix_dico)
     return prefix_dico
 
-def change_prefix(message):
+async def change_prefix(message):
     try :
         file=open("fonction/Common/prefix.txt",'r')
         c=file.read().split('\n')
@@ -58,5 +66,5 @@ def change_prefix(message):
     new_prefix=str(message.content).split(" ")[1]
     prefix_dico[int(message.guild.id)]=f"{new_prefix}"
     __file_actualize(prefix_dico)
-
+    await __check_message(message,new_prefix)
     
