@@ -21,6 +21,7 @@ _2048 = importlib.import_module("fonction.Game.2048.2048")
 _2038 = importlib.import_module("fonction.Game.2038.2038")
 import fonction.VC.join as join
 import fonction.Common.give_away.give_away as give_away
+import fonction.Common.prefix as prefix
 
 
 intents = discord.Intents.default() #https://stackoverflow.com/questions/64831017/how-do-i-get-the-discord-py-intents-to-work
@@ -53,7 +54,8 @@ command_dico={"get-user-id":[],
               "blague": [],
               "join": [],
               "speak": [],
-              "give_away" : []
+              "give_away" : [],
+              "newprefix": []
               }
 
 
@@ -69,17 +71,24 @@ async def on_ready():
         serveur_on.append(serveur)
         print(f"   |-- {serveur.name}  {serveur.id}")
     print("   ---")
+    
+    global serveur_prefix
+    serveur_prefix = await prefix.load_prefix(client)
+    print(serveur_prefix)
+    
     give_away_loop.start()
     
         
 
 @client.event
 async def on_message(message):
+    global serveur_prefix
     try:
-        prefix=str(message.content[0])
-        content=str(message.content[1:])
+        prefix_serv=serveur_prefix[int(message.guild.id)]
+        prefix_=str(message.content[0:len(prefix_serv)])
+        content=str(message.content[len(prefix_serv):])
         #print(content.split(" ")[0])
-        if prefix == "$":
+        if str(prefix_) == str(prefix_serv):
             allow=True
             try :
                 perm_ls=command_dico[str(content.split(" ")[0])]
@@ -143,6 +152,9 @@ async def on_message(message):
                 await join.speak(client,message)
             if content.split(" ")[0] == "give_away":
                 await give_away.give_away(client,message)
+            if content.split(" ")[0] == "newprefix":
+                prefix.change_prefix(message)
+                serveur_prefix = await prefix.load_prefix(client)
     except: pass
       
     
