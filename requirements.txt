@@ -7,3 +7,4 @@ sudo fc-cache
 fc-match Arial
 pip install gTTS pyttsx3
 pip install playsound==1.2.2
+pip install PyNaCl
